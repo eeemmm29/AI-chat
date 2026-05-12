@@ -34,7 +34,7 @@ async def test_socketio_send_message(server):
     # Mocking firebase_admin.auth.verify_id_token
     mock_user = {"uid": "user1", "email": "user1@example.com"}
     with patch("firebase_admin.auth.verify_id_token", return_value=mock_user):
-        await sio.connect('http://127.0.0.1:8000', auth={'token': 'valid_token'})
+        await sio.connect('http://127.0.0.1:8080', auth={'token': 'valid_token'})
         await sio.emit('send_message', {'sender': 'user1', 'recipient': 'user2', 'content': 'hello ws', 'timestamp': '2023-01-01T10:00:00'})
         await asyncio.sleep(0.1)
     
@@ -157,7 +157,7 @@ git commit -m "feat: secure message event and align with frontend"
     const initSocket = async () => {
       try {
         const token = await user.getIdToken();
-        const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:8000";
+        const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:8080";
         socketInstance = io(socketUrl, {
           auth: { token }
         });

@@ -29,7 +29,7 @@ Navigate to the backend directory, install dependencies, and start the developme
 cd AI-chat-backend
 uv run uvicorn main:app --reload
 ```
-*The backend API will be available at `http://localhost:8000`.*
+*The backend API will be available at `http://localhost:8080`.*
 
 ### 2. Frontend Setup
 Open a new terminal window, navigate to the frontend directory, install dependencies, and start the development server:
