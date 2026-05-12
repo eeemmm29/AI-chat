@@ -1,0 +1,3 @@
+- [x] Task 1: Minimal Terraform Infrastructure
+- [x] Task 2: Firebase SDK Frontend Integration
+- [x] Task 3: Backend Firebase Token Verification
