@@ -28,6 +28,17 @@ resource "google_identity_platform_config" "default" {
   depends_on = [google_project_service.enabled_apis]
 }
 
+# Enable Google as a Sign-In Provider
+resource "google_identity_platform_default_supported_idp_config" "google" {
+  project    = var.project_id
+  idp_id     = "google.com"
+  enabled    = true
+  client_id  = "PLACEHOLDER_CLIENT_ID.apps.googleusercontent.com"
+  client_secret = "PLACEHOLDER_CLIENT_SECRET"
+  
+  depends_on = [google_project_service.enabled_apis]
+}
+
 # Cloud SQL Instance (PostgreSQL)
 resource "google_sql_database_instance" "instance" {
   name             = "chat-db-instance"
