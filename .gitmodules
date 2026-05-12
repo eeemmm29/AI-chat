@@ -1,3 +1,6 @@
 [submodule "AI-chat-backend"]
 	path = AI-chat-backend
 	url = https://github.com/eeemmm29/AI-chat-backend.git
+[submodule "AI-chat-frontend"]
+	path = AI-chat-frontend
+	url = https://github.com/eeemmm29/AI-chat-frontend.git
