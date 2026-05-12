@@ -30,12 +30,12 @@ resource "google_identity_platform_config" "default" {
 
 # Enable Google as a Sign-In Provider
 resource "google_identity_platform_default_supported_idp_config" "google" {
-  project    = var.project_id
-  idp_id     = "google.com"
-  enabled    = true
-  client_id  = "PLACEHOLDER_CLIENT_ID.apps.googleusercontent.com"
-  client_secret = "PLACEHOLDER_CLIENT_SECRET"
-  
+  project       = var.project_id
+  idp_id        = "google.com"
+  enabled       = true
+  client_id     = var.google_client_id
+  client_secret = var.google_client_secret
+
   depends_on = [google_project_service.enabled_apis]
 }
 
@@ -48,15 +48,15 @@ resource "google_sql_database_instance" "instance" {
 
   settings {
     tier = "db-f1-micro" # Smallest tier for Free Tier / low cost
-    
+
     ip_configuration {
       ipv4_enabled = true
     }
   }
 
   # Helps with cleanup during development, set to true for production
-  deletion_protection = false 
-  
+  deletion_protection = false
+
   depends_on = [google_project_service.enabled_apis]
 }
 
@@ -75,14 +75,15 @@ resource "google_sql_user" "users" {
 
 # Cloud Run Service for Backend
 resource "google_cloud_run_v2_service" "backend" {
-  name     = "chat-backend"
-  location = var.region
-  project  = var.project_id
+  name                = "chat-backend"
+  location            = var.region
+  project             = var.project_id
+  deletion_protection = false # Helps with cleanup during development, set to true for production
 
   template {
     containers {
       image = "gcr.io/${var.project_id}/chat-backend:latest"
-      
+
       env {
         name  = "DATABASE_URL"
         value = "postgresql://chat_user:changeme-use-secrets-later@/${google_sql_database.database.name}?host=/cloudsql/${google_sql_database_instance.instance.connection_name}"
