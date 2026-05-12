@@ -1,0 +1,68 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Backend",
+            "type": "shell",
+            "command": "uv run uvicorn main:app --reload --port 8000",
+            "options": {
+                "cwd": "${workspaceFolder}/AI-chat-backend"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "servers"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "python",
+                "fileLocation": ["relative", "${workspaceFolder}/AI-chat-backend"],
+                "pattern": {
+                    "regexp": "^.*$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^INFO:     Will watch for changes",
+                    "endsPattern": "^INFO:     Application startup complete"
+                }
+            }
+        },
+        {
+            "label": "Start Frontend",
+            "type": "shell",
+            "command": "pnpm dev --port 3000",
+            "options": {
+                "cwd": "${workspaceFolder}/AI-chat-frontend"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "servers"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "typescript",
+                "fileLocation": ["relative", "${workspaceFolder}/AI-chat-frontend"],
+                "pattern": {
+                    "regexp": "^.*$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "▲ Next.js",
+                    "endsPattern": "✓ Ready in"
+                }
+            }
+        },
+        {
+            "label": "Start All Servers",
+            "dependsOn": [
+                "Start Backend",
+                "Start Frontend"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
