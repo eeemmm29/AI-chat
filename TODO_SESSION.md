@@ -1,0 +1,3 @@
+- [x] Task 1: Frontend Login UI and Google Sign-In
+- [x] Task 2: Backend User Sync and REST Security
+- [x] Task 3: Secure Socket.io Connection
